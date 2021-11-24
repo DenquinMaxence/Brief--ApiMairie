@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Api Mairie</title>
+		<style>
+			body {
+				background-color: #ddd;
+			}
+		</style>
+	</head>
+	<body>
+		<form method="POST" id="reportForm">
+			<!-- Report informations -->
+			<div>
+				<label for="typeReport">Type d'alerte</label>
+				<select name="typeReport" id="typeReport">
+					<option value="">Choisir</option>
+					<option value="highways">Voirie</option>
+					<option value="parking" selected>Stationnement</option>
+					<option value="works">Travaux</option>
+					<option value="other">Autre</option>
+				</select>
+			</div>
+			<div>
+				<label for="descReport">Description de l'alerte</label>
+				<div>
+					<textarea name="descReport" id="descReport" cols="30" rows="5">Un enculé s'est mis devant mon garage #Simon</textarea>
+				</div>
+			</div>
+			<div>
+				<label for="dateReport">Date de l'alerte</label>
+				<input type="date" name="dateReport" id="dateReport" value="2021-11-24" />
+			</div>
+			<div>
+				<label for="timeReport">Heure de l'alerte</label>
+				<input type="time" name="timeReport" id="timeReport" value="16:20" />
+			</div>
+			<!-- <div>
+                <label for="latReport">Latitude</label>
+                <input type="text" name="latReport" id="latReport" />
+            </div>
+            <div>
+                <label for="lngReport">Longitude</label>
+                <input type="text" name="lngReport" id="lngReport" />
+            </div> -->
+			<!-- <div>
+				<label for="pictureReport">Photo</label>
+				<input type="file" name="pictureReport" id="pictureReport" />
+			</div> -->
+			<!-- Sender informations -->
+			<div>
+				<label for="lastNameSender">Nom</label>
+				<input type="text" name="lastNameSender" id="nameSender" value="Libert" />
+			</div>
+			<div>
+				<label for="firstNameSender">Prénom</label>
+				<input type="text" name="firstNameSender" id="firstNameSender" value="Simon" />
+			</div>
+			<div>
+				<label for="emailSender">Email</label>
+				<input
+					type="email"
+					name="emailSender"
+					id="emailSender"
+					value="simon.libert.simplon@gmail.com"
+				/>
+			</div>
+			<div>
+				<label for="addressSender">Adresse</label>
+				<input type="text" name="addressSender" id="addressSender" value="14 Rue Raiduku" />
+			</div>
+			<div>
+				<label for="citySender">Ville</label>
+				<input type="text" name="citySender" id="citySender" value="Boulogne-sur-Mer" />
+			</div>
+			<div>
+				<label for="postalSender">Code Postal</label>
+				<input type="text" name="postalSender" id="postalSender" value="62200" />
+			</div>
+			<div>
+				<label for="phoneSender">Téléphone</label>
+				<input type="text" name="phoneSender" id="phoneSender" value="06.59.82.45.87" />
+			</div>
+			<button type="submit">Envoyer</button>
+		</form>
+
+		<script src="./assets/js/index.js"></script>
+	</body>
+</html>

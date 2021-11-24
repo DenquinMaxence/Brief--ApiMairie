@@ -12,8 +12,8 @@ import mongoose from 'mongoose';
 		- Prénom
 		- Email
 		- Adresse
-		- Code postal
 		- Ville
+		- Code postal
 		- Téléphone
 */
 const reportSchema = new mongoose.Schema({
@@ -24,17 +24,18 @@ const reportSchema = new mongoose.Schema({
 	},
 	description: {
 		type: String,
+		max: 1024,
 		required: true,
 	},
 	date: {
 		type: Date,
 		required: true,
 	},
-	hour: {
+	time: {
 		type: String,
 		required: true,
 	},
-	address: {
+	addressReport: {
 		type: String,
 		required: true,
 	},
@@ -42,23 +43,36 @@ const reportSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	lastname: {
+	lastName: {
 		type: String,
-		required: true,
+		minlength: 2,
+		maxlength: 50,
+		required: [true, 'Merci de fournir un nom'],
 	},
-	firstname: {
+	firstName: {
 		type: String,
-		required: true,
+		minlength: 2,
+		maxlength: 50,
+		required: [true, 'Merci de fournir un prénom'],
 	},
 	email: {
 		type: String,
-		required: true,
+		match: [
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+			'Merci de fournir un email valide',
+		],
+		unique: true,
+		required: [true, 'Merci de fournir un email'],
 	},
-	postalCode: {
+	address: {
 		type: String,
 		required: true,
 	},
 	city: {
+		type: String,
+		required: true,
+	},
+	postalCode: {
 		type: String,
 		required: true,
 	},
