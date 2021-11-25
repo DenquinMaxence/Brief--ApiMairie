@@ -1,5 +1,18 @@
 const reportForm = document.getElementById('reportForm');
 
+if (!navigator.geolocation) {
+	console.log('Geolocation is not supported by your browser');
+} else {
+	navigator.geolocation.getCurrentPosition(
+		(position) => {
+			console.log(position);
+		},
+		(error) => {
+			console.log(error);
+		}
+	);
+}
+
 reportForm.addEventListener('submit', (e) => {
 	e.preventDefault();
 
