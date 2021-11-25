@@ -8,7 +8,6 @@ reportForm.addEventListener('submit', (e) => {
 
 	formData.forEach((value, key) => {
 		if (key === 'dateReport') value = new Date(value).toLocaleDateString();
-		if (key === 'timeReport') value = value.replace(':', 'h');
 
 		report[key] = value;
 	});
