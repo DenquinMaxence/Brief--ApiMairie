@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from 'express';
 import connectDB from './config/db.js';
+import fileupload from 'express-fileupload';
 import reportRouter from './routes/reportRoutes.js';
 import cors from 'cors';
 
@@ -22,6 +23,7 @@ start();
 
 // Middlware
 app.use(express.json());
+app.use(fileupload());
 app.use(cors());
 
 // Routes

@@ -1,35 +1,39 @@
 const reportForm = document.getElementById('reportForm');
 
-if (!navigator.geolocation) {
-	console.log('Geolocation is not supported by your browser');
-} else {
-	navigator.geolocation.getCurrentPosition(
-		(position) => {
-			console.log(position);
-		},
-		(error) => {
-			console.log(error);
-		}
-	);
-}
+const getPosition = async () => {
+	const options = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 0,
+	};
 
-reportForm.addEventListener('submit', (e) => {
+	return await new Promise((resolve, reject) => {
+		navigator.geolocation.getCurrentPosition(resolve, reject, options);
+	});
+};
+
+reportForm.addEventListener('submit', async (e) => {
 	e.preventDefault();
 
 	const formData = new FormData(reportForm);
-	const report = {};
 
-	formData.forEach((value, key) => {
-		if (key === 'dateReport') value = new Date(value).toLocaleDateString();
+	/* let position;
+	if (!navigator.geolocation) console.log('Geolocation is not supported by your browser');
+	else position = await getPosition();
 
-		report[key] = value;
-	});
+	if (position) {
+		formData.set('latitude', position.coords.latitude);
+		formData.set('longitude', position.coords.longitude);
+	} */
 
-	fetch('http://localhost:3500/api/v1/reports/', {
-		method: 'POST',
-		body: JSON.stringify(report),
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	});
+	try {
+		const response = await fetch('http://localhost:3500/api/v1/reports/', {
+			method: 'POST',
+			body: formData,
+		});
+
+		console.log(response);
+	} catch (error) {
+		console.log(error);
+	}
 });

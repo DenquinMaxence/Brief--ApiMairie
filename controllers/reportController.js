@@ -7,11 +7,11 @@ export const getAllReports = async (req, res) => {
 };
 
 export const createReport = async (req, res) => {
-	console.log(req.body);
-	try {
-		const report = await reportModel.create({ ...req.body });
-		res.status(StatusCodes.CREATED).send(report._id);
-	} catch (error) {
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
-	}
+	console.log('body ->', req.body);
+	// try {
+	// 	const report = await reportModel.create({ ...req.body });
+	// 	res.status(StatusCodes.CREATED).send(report._id);
+	// } catch (error) {
+	// 	res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+	// }
 };

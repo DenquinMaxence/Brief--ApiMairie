@@ -12,7 +12,7 @@
 		</style>
 	</head>
 	<body>
-		<form method="POST" id="reportForm">
+		<form method="POST" id="reportForm" enctype="multipart/form-data">
 			<!-- Report informations -->
 			<div>
 				<label for="typeReport">Type d'alerte</label>
@@ -40,18 +40,18 @@ Un enculé s'est mis devant mon garage #Simon</textarea
 				<label for="timeReport">Heure de l'alerte</label>
 				<input type="time" name="timeReport" id="timeReport" value="16:20" />
 			</div>
-			<!-- <div>
-                <label for="latReport">Latitude</label>
-                <input type="text" name="latReport" id="latReport" />
-            </div>
-            <div>
-                <label for="lngReport">Longitude</label>
-                <input type="text" name="lngReport" id="lngReport" />
-            </div> -->
-			<!-- <div>
+			<div>
+				<label for="latReport">Latitude</label>
+				<input type="text" name="latReport" id="latReport" value="50.7650953" />
+			</div>
+			<div>
+				<label for="lngReport">Longitude</label>
+				<input type="text" name="lngReport" id="lngReport" value="1.6074424" />
+			</div>
+			<div>
 				<label for="pictureReport">Photo</label>
 				<input type="file" name="pictureReport" id="pictureReport" />
-			</div> -->
+			</div>
 			<!-- Sender informations -->
 			<div>
 				<label for="lastNameSender">Nom</label>
