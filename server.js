@@ -3,7 +3,6 @@ dotenv.config();
 
 import express from 'express';
 import connectDB from './config/db.js';
-import fileupload from 'express-fileupload';
 import reportRouter from './routes/reportRoutes.js';
 import cors from 'cors';
 
@@ -21,9 +20,10 @@ const start = async () => {
 
 start();
 
-// Middlware
-app.use(express.json());
-app.use(fileupload());
+// Middleware
+app.use(express.static('public'));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());
 
 // Routes

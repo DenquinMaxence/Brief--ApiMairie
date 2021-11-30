@@ -8,6 +8,8 @@ export const getAllReports = async (req, res) => {
 
 export const createReport = async (req, res) => {
 	console.log('body ->', req.body);
+
+	res.status(StatusCodes.CREATED).send('createReport');
 	// try {
 	// 	const report = await reportModel.create({ ...req.body });
 	// 	res.status(StatusCodes.CREATED).send(report._id);
