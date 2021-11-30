@@ -4,6 +4,7 @@ dotenv.config();
 import fs from 'fs';
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
+import { StatusCodes } from 'http-status-codes';
 
 export const uploadPicture = (req, res, next) => {
 	// Get the file name and extension with multer
@@ -45,7 +46,7 @@ export const uploadPicture = (req, res, next) => {
 
 	// Upload the file to cloudinary
 	upload(req, res, async (err) => {
-		if (err) return res.status(409).send(err.message);
+		if (err) return res.status(StatusCodes.CONFLICT).send(err.message);
 
 		cloudinary.config({
 			cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -53,7 +54,8 @@ export const uploadPicture = (req, res, next) => {
 			api_secret: process.env.CLOUDINARY_API_SECRET,
 		});
 
-		if (!req.file) return res.status(404).send('No file found, please upload a file');
+		if (!req.file)
+			return res.status(StatusCodes.NOT_FOUND).send('No file found, please upload a file');
 
 		const { path } = req.file; // Get the path of the file
 		try {
@@ -73,7 +75,7 @@ export const uploadPicture = (req, res, next) => {
 			// Go to the next middleware
 			next();
 		} catch (error) {
-			return res.status(409).send(error.message);
+			return res.status(StatusCodes.CONFLICT).send(error.message);
 		}
 	});
 };

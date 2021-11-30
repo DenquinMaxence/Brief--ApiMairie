@@ -69,7 +69,7 @@ const reportSchema = new mongoose.Schema({
 	 * @type {String}
 	 * @memberof reportSchema
 	 */
-	photo: {
+	picture: {
 		type: String,
 		required: true,
 	},
