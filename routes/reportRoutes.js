@@ -1,9 +1,10 @@
 import { Router } from 'express';
+import checkBodyReport from '../utils/checkBodyReport.js';
 import { uploadPicture } from '../middleware/cloudinary.js';
-import { getAllReports, createReport } from '../controllers/reportController.js';
+import { selectAllReports, createReport } from '../controllers/reportController.js';
 
 const router = Router();
 
-router.get('/', getAllReports).post('/', uploadPicture, createReport);
+router.get('/', selectAllReports).post('/', uploadPicture, checkBodyReport, createReport);
 
 export default router;
