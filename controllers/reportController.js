@@ -22,8 +22,6 @@ export const createReport = async (req, res) => {
 		phoneSender,
 	} = req.body;
 
-	console.log(dateReport);
-
 	try {
 		const report = await reportModel.create({
 			type: typeReport,
