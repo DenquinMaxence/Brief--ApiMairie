@@ -28,48 +28,50 @@ export default function checkBodyReport(req, res, next) {
 
 	const errors = [];
 
-	if (!typeReport) errors.push('Type report is required');
-	else if (!isTypeReport(typeReport)) errors.push('Type report is invalid');
+	if (!typeReport) errors.push('Please provide a type of report');
+	else if (!isTypeReport(typeReport)) errors.push('The type of report provided is invalid');
 
-	if (!descReport) errors.push('Description report is required');
+	if (!descReport) errors.push('Please provide a description of the report');
 	else if (!(descReport.length > 0 && descReport.length <= 1024))
 		errors.push('Description must be between 1 and 1024 characters');
 
-	if (!dateReport) errors.push('Date report is required');
-	else if (!isDate(dateReport)) errors.push('Date report is not valid');
+	if (!dateReport) errors.push('Please provide the date of the report');
+	else if (!isDate(dateReport)) errors.push('The date report provided is invalid');
 
-	if (!timeReport) errors.push('Time report is required');
-	else if (!isTime(timeReport)) errors.push('Time report is not valid');
+	if (!timeReport) errors.push('Please provide the report time');
+	else if (!isTime(timeReport)) errors.push('The time report provided is invalid');
 	else {
 		timeReport = timeReport.split(':');
 		req.body.dateReport = new Date(new Date(dateReport).setHours(timeReport[0], timeReport[1]));
 	}
 
-	if (!addressReport) errors.push('Address report is required');
+	if (!addressReport) errors.push('Please provide the report address');
 
-	if (!pictureReport) errors.push('Picture report is required');
-	else if (!isPictureCloudinaryUrl(pictureReport)) errors.push('Picture report is not valid');
+	if (!pictureReport) errors.push('Please provide a picture of the report');
+	else if (!isPictureCloudinaryUrl(pictureReport)) errors.push('Invalid image URL link provided');
 
-	if (!lastNameSender) errors.push('Last name sender is required');
+	if (!lastNameSender) errors.push('Please provide your last name');
 	else if (!(lastNameSender.length >= 2 && lastNameSender.length <= 50))
-		errors.push('Last name sender is invalid');
+		errors.push('Last name must be between 2 and 50 characters');
 
-	if (!firstNameSender) errors.push('First name sender is required');
+	if (!firstNameSender) errors.push('Please provide your first name');
 	else if (!(firstNameSender.length >= 2 && firstNameSender.length <= 50))
-		errors.push('First name sender is invalid');
+		errors.push('First name must be between 2 and 50 characters');
 
-	if (!emailSender) errors.push('Email sender is required');
-	else if (!isEmail(emailSender)) errors.push('Email sender format is not valid');
+	if (!emailSender) errors.push('Please provide an email address');
+	else if (!isEmail(emailSender))
+		errors.push('The format of the email address provided is invalid');
 
-	if (!addressSender) errors.push('Address sender is required');
+	if (!addressSender) errors.push('Please provide your address');
 
-	if (!citySender) errors.push('City sender is required');
+	if (!citySender) errors.push('Please provide your city name');
 
-	if (!postalSender) errors.push('Postal sender is required');
-	else if (!isPostalCode(postalSender)) errors.push('Postal sender is not valid');
+	if (!postalSender) errors.push('Please provide your postal code');
+	else if (!isPostalCode(postalSender)) errors.push('The postal code provided is invalid');
 
-	if (!phoneSender) errors.push('Phone sender is required');
-	else if (!isPhoneNumber(phoneSender)) errors.push('Phone sender is not valid');
+	if (!phoneSender) errors.push('Please provide a phone number');
+	else if (!isPhoneNumber(phoneSender))
+		errors.push('The phone number provided does not follow the requested format');
 
 	if (errors.length > 0) return res.status(StatusCodes.BAD_REQUEST).json({ errors });
 
