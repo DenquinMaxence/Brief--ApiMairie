@@ -11,9 +11,6 @@ export const createReport = async (req, res) => {
 		typeReport,
 		descReport,
 		dateReport,
-		timeReport,
-		latReport,
-		lngReport,
 		addressReport,
 		pictureReport,
 		lastNameSender,
@@ -25,13 +22,14 @@ export const createReport = async (req, res) => {
 		phoneSender,
 	} = req.body;
 
+	console.log(dateReport);
+
 	try {
 		const report = await reportModel.create({
 			type: typeReport,
 			description: descReport,
 			date: dateReport,
-			time: timeReport,
-			addressReport: addressReport || `${latReport}, ${lngReport}`,
+			addressReport,
 			picture: pictureReport,
 			lastName: lastNameSender,
 			firstName: firstNameSender,

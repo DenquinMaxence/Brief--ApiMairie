@@ -40,18 +40,6 @@ const reportSchema = new mongoose.Schema(
 			required: true,
 		},
 		/**
-		 * @description Hour of the report
-		 * @type {String}
-		 * @memberof reportSchema
-		 * @example
-		 * "12:30"
-		 */
-		time: {
-			type: String,
-			match: /^([0-1][0-9]|[2][0-3]):([0-5][0-9])$/,
-			required: true,
-		},
-		/**
 		 * @description Address of the report
 		 * @type {String}
 		 * @memberof reportSchema
@@ -106,10 +94,6 @@ const reportSchema = new mongoose.Schema(
 		 */
 		email: {
 			type: String,
-			match: [
-				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-				'Merci de fournir un email valide',
-			],
 			required: [true, 'Merci de fournir un email'],
 		},
 		/**
@@ -144,10 +128,6 @@ const reportSchema = new mongoose.Schema(
 		postalCode: {
 			type: String,
 			required: [true, 'Please provide a postal code'],
-			match: [
-				/^(([0-8][0-9])|(9[0-5])|(2[ab]))[0-9]{3}$/,
-				'Please provide a valid postal code',
-			],
 		},
 		/**
 		 * @description Phone number of the sender
