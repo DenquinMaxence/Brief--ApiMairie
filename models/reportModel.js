@@ -57,7 +57,7 @@ const reportSchema = new mongoose.Schema(
 		 */
 		picture: {
 			type: String,
-			required: true,
+			default: '',
 		},
 		/**
 		 * @description Lastname of the sender

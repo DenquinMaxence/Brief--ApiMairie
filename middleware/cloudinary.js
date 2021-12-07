@@ -20,7 +20,7 @@ export const uploadPicture = (req, res, next) => {
 		});
 
 		if (!req.file)
-			return res.status(StatusCodes.NOT_FOUND).send('No file found, please upload a file');
+			return next();
 
 		// Get the path of the file
 		const { path } = req.file;

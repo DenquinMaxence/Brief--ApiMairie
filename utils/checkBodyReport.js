@@ -47,8 +47,8 @@ export default function checkBodyReport(req, res, next) {
 
 	if (!addressReport) errors.push('Please provide the report address');
 
-	if (!pictureReport) errors.push('Please provide a picture of the report');
-	else if (!isPictureCloudinaryUrl(pictureReport)) errors.push('Invalid image URL link provided');
+	console.log(pictureReport, pictureReport && !isPictureCloudinaryUrl(pictureReport));
+	if (pictureReport && !isPictureCloudinaryUrl(pictureReport)) errors.push('Invalid image URL link provided');
 
 	if (!lastNameSender) errors.push('Please provide your last name');
 	else if (!(lastNameSender.length >= 2 && lastNameSender.length <= 50))
