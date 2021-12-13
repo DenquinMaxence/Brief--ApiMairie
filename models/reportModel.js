@@ -10,6 +10,7 @@ const reportSchema = new mongoose.Schema(
 		 * "highways"
 		 * "parking"
 		 * "works"
+		 * "animals"
 		 * "other"
 		 */
 		type: {

@@ -1,5 +1,5 @@
 export const isTypeReport = (value) => {
-	const typeOfReport = ['highways', 'parking', 'works', 'other'];
+	const typeOfReport = ['highways', 'parking', 'works', 'animals', 'other'];
 	return typeOfReport.includes(value);
 };
 
