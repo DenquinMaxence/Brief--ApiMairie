@@ -1,6 +1,6 @@
 # Brief Api-Mairie
 
-This API was developed with NodeJs Express MongoDB
+This API was developed with [NodeJs](https://nodejs.org/en/) [Express](http://expressjs.com/) [MongoDB](https://www.mongodb.com/)
 
 ## API Reference
 
@@ -27,3 +27,9 @@ This API was developed with NodeJs Express MongoDB
 | `citySender`      | `string` | **Required**. Example : `Roubaix`                                                   |
 | `postalSender`    | `string` | **Required**. Example : `59100`                                                     |
 | `phoneSender`     | `string` | **Required**. Example : `0655555555` OR `06.55.55.55.55`                            |
+
+## Tech Stack
+
+**Client:** Work in progress
+
+**Server:** [NodeJs](https://nodejs.org/en/), [Express](http://expressjs.com/), [MongoDB](https://www.mongodb.com/)
