@@ -2,6 +2,11 @@ import reportModel from '../models/reportModel.js';
 import { StatusCodes } from 'http-status-codes';
 import sendEmail from '../utils/sendEmail.js';
 
+export const selectAllReports = async (req, res) => {
+	const reports = await reportModel.find();
+	res.status(StatusCodes.OK).json({ reports });
+};
+
 export const createReport = async (req, res) => {
 	const {
 		typeReport,
