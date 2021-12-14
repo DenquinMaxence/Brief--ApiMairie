@@ -142,7 +142,6 @@ const reportSchema = new mongoose.Schema(
 		phone: {
 			type: String,
 			required: [true, 'Please provide a phone number'],
-			match: [/^0[1-9]([-. ]?[0-9]{2}){4}$/, 'Please provide a valid phone number'],
 		},
 	},
 	{
