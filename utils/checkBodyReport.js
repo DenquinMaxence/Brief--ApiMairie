@@ -9,7 +9,7 @@ import {
 	isPhoneNumber,
 } from '../utils/isValid.js';
 
-export default function checkBodyReport(req, res, next) {
+export default (req, res, next) => {
 	let {
 		typeReport,
 		descReport,

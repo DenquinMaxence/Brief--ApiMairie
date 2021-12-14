@@ -1,13 +1,6 @@
 import nodemailer from 'nodemailer';
 
-/**
- *
- * @param {String} sendTo
- * @param {String} subject
- * @param {String} message
- * @return {Promise} resolve(true) or reject(error)
- */
-export default function sendEmail(sendTo, subject, message) {
+export default (sendTo, subject, message) => {
 	// transporter.sendMail does not return a promise, so we need to use async/await
 	return new Promise((resolve, reject) => {
 		// Send mail with outlook.com
@@ -36,4 +29,4 @@ export default function sendEmail(sendTo, subject, message) {
 			else resolve(info);
 		});
 	});
-}
+};

@@ -6,7 +6,7 @@ import multer from 'multer';
  * @param {String} inputFileName Insert input file name declared in the form, default value is ```pictureReport```
  * @return {InstanceType} Returns the multer instance
  */
-export default function checkFile(inputFileName = 'pictureReport') {
+export default (inputFileName = 'pictureReport') => {
 	// Get the file name and extension with multer
 	const storage = multer.diskStorage({
 		filename: (req, file, cb) => {
