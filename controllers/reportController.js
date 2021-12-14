@@ -31,36 +31,34 @@ export const createReport = async (req, res) => {
 		else if (typeReport === 'animals') sendTo = 'animaux@simplonville.co';
 		else sendTo = 'autres@simplonville.co';
 
-		console.log(sendTo, dateReport);
-
 		sendEmail(
 			sendTo,
 			'Nouveau signalement',
 			`
-			<div>
-				<h1>Informations sur le signalement</h1>
-				<p>Description: ${descReport}</p>
-				<p>Date et heure: ${dateReport}</p>
-				<p>Adresse: ${addressReport}</p>
-				<p>Photo:
-					${
-						pictureReport
-							? `<a href="${pictureReport}">Cliquer ici pour voir l'image</a>`
-							: 'Aucune photo fourni'
-					}
-				</p>
-			</div>
-			<div>
-				<h1>Informations sur l'expéditeur du signalement</h1>
-				<p>Nom: ${lastNameSender}</p>
-				<p>Prénom: ${firstNameSender}</p>
-				<p>Email: ${emailSender}</p>
-				<p>Adresse: ${addressSender}</p>
-				<p>Ville: ${citySender}</p>
-				<p>Code postal: ${postalSender}</p>
-				<p>Numéro de téléphone: ${phoneSender}</p>
-			</div>
-		`
+				<div>
+					<h1>Informations sur le signalement</h1>
+					<p>Description: ${descReport}</p>
+					<p>Date et heure: ${dateReport}</p>
+					<p>Adresse: ${addressReport}</p>
+					<p>Photo:
+						${
+							pictureReport
+								? `<a href="${pictureReport}">Cliquer ici pour voir l'image</a>`
+								: 'Aucune photo fourni'
+						}
+					</p>
+				</div>
+				<div>
+					<h1>Informations sur l'expéditeur du signalement</h1>
+					<p>Nom: ${lastNameSender}</p>
+					<p>Prénom: ${firstNameSender}</p>
+					<p>Email: ${emailSender}</p>
+					<p>Adresse: ${addressSender}</p>
+					<p>Ville: ${citySender}</p>
+					<p>Code postal: ${postalSender}</p>
+					<p>Numéro de téléphone: ${phoneSender}</p>
+				</div>
+			`
 		);
 	} catch (error) {
 		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
