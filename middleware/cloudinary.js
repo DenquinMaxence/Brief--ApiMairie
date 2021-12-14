@@ -6,7 +6,7 @@ import checkFile from '../utils/multer.js';
 import { v2 as cloudinary } from 'cloudinary';
 import { StatusCodes } from 'http-status-codes';
 
-export const uploadPicture = (req, res, next) => {
+export default function uploadPicture(req, res, next) {
 	const multerResult = checkFile('pictureReport');
 
 	// Upload the file to cloudinary
