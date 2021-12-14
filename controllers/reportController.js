@@ -91,7 +91,7 @@ export const createReport = async (req, res) => {
 			phone: phoneSender,
 		});
 
-		res.status(StatusCodes.CREATED).send(report._id);
+		res.status(StatusCodes.CREATED).send({ report: report._id, mail: mailResponse.messageId });
 	} catch (error) {
 		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
 	}
