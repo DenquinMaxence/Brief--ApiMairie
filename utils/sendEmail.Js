@@ -28,7 +28,6 @@ export default function sendEmail(sendTo, subject, message) {
 			from: `"Mairie Simplonville" <${process.env.EMAIL_HOST_USER}>`,
 			to: sendTo,
 			subject: subject,
-			text: message,
 			html: message,
 		};
 
