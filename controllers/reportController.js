@@ -23,15 +23,31 @@ export const createReport = async (req, res) => {
 		phoneSender,
 	} = req.body;
 
-	let sendTo;
+	let sendTo, mailResponse;
 	try {
-		if (typeReport === 'highways') sendTo = 'voirie@simplonville.co';
-		else if (typeReport === 'parking') sendTo = 'stationnement@simplonville.co';
-		else if (typeReport === 'works') sendTo = 'travaux@simplonville.co';
-		else if (typeReport === 'animals') sendTo = 'animaux@simplonville.co';
-		else sendTo = 'autres@simplonville.co';
+		switch (typeReport) {
+			case 'highways':
+				sendTo = 'voirie@simplonville.co';
+				break;
 
-		sendEmail(
+			case 'parking':
+				sendTo = 'stationnement@simplonville.co';
+				break;
+
+			case 'works':
+				sendTo = 'travaux@simplonville.co';
+				break;
+
+			case 'animals':
+				sendTo = 'animaux@simplonville.co';
+				break;
+
+			default:
+				sendTo = 'autres@simplonville.co';
+				break;
+		}
+
+		mailResponse = await sendEmail(
 			sendTo,
 			'Nouveau signalement',
 			`
@@ -61,7 +77,7 @@ export const createReport = async (req, res) => {
 			`
 		);
 	} catch (error) {
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errorr: error.message });
 	}
 
 	try {
@@ -82,6 +98,6 @@ export const createReport = async (req, res) => {
 
 		res.status(StatusCodes.CREATED).send(report._id);
 	} catch (error) {
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
 	}
 };
