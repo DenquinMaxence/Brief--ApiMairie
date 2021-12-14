@@ -34,7 +34,7 @@ const reportSchema = new mongoose.Schema(
 		 * @type {Date}
 		 * @memberof reportSchema
 		 * @example
-		 * "01/01/1991"
+		 * "1991-01-01"
 		 */
 		date: {
 			type: Date,
@@ -102,7 +102,7 @@ const reportSchema = new mongoose.Schema(
 		 * @type {String}
 		 * @memberof reportSchema
 		 * @example
-		 * "Rue des Prés, 75001 Paris"
+		 * "33 Blvd du Général Leclerc"
 		 */
 		address: {
 			type: String,
@@ -113,7 +113,7 @@ const reportSchema = new mongoose.Schema(
 		 * @type {String}
 		 * @memberof reportSchema
 		 * @example
-		 * "Paris"
+		 * "Roubaix"
 		 */
 		city: {
 			type: String,
@@ -124,7 +124,7 @@ const reportSchema = new mongoose.Schema(
 		 * @type {String}
 		 * @memberof reportSchema
 		 * @example
-		 * "75001"
+		 * "59100"
 		 */
 		postalCode: {
 			type: String,
