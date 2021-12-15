@@ -4,31 +4,33 @@ import { StatusCodes } from 'http-status-codes';
 export const signUp = async (req, res) => {
 	try {
 		const user = await userModel.create(req.body);
-		res.status(StatusCodes.CREATED).json(user);
+		res.status(StatusCodes.CREATED).send(user);
 	} catch (error) {
-		res.status(StatusCodes.BAD_REQUEST).json(error);
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
 	}
 };
 
 export const signIn = async (req, res) => {
 	try {
-		const user = await userModel.findOne({ email: req.body.email });
-		if (!user) res.status(StatusCodes.NOT_FOUND).json({ message: 'Utilisateur non trouvé' });
+		const { email, password } = req.body;
 
-		const isPasswordValid = await user.comparePassword(req.body.password);
-		if (!isPasswordValid)
-			res.status(StatusCodes.NOT_FOUND).json({ message: 'Mot de passe invalide' });
+		const user = await userModel.findOne({ email });
+		if (!user) res.status(StatusCodes.BAD_REQUEST).send('Invalid email');
 
-		res.status(StatusCodes.OK).json(user);
+		const isMatch = await user.comparePassword(password);
+		if (!isMatch) res.status(StatusCodes.BAD_REQUEST).send('Invalid password');
+
+		const token = await user.generateJWT();
+		res.status(StatusCodes.OK).send(token);
 	} catch (error) {
-		res.status(StatusCodes.BAD_REQUEST).json(error);
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
 	}
 };
 
 export const signOut = async (req, res) => {
 	try {
-		res.status(StatusCodes.OK).json({ message: 'Déconnexion réussie' });
+		res.status(StatusCodes.OK).send('Déconnexion réussie');
 	} catch (error) {
-		res.status(StatusCodes.BAD_REQUEST).json(error);
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
 	}
 };
