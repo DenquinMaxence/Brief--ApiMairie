@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const userSchema = new mongoose.Schema(
 	{
@@ -30,4 +31,16 @@ const userSchema = new mongoose.Schema(
 	}
 );
 
+// pre hook
+userSchema.pre('save', async function () {
+	const salt = await bcrypt.genSalt(Number(process.env.SALT));
+	this.password = await bcrypt.hash(this.password, salt);
+});
+
+// Allow to compare password
+userSchema.methods.matchPassword = function (password) {
+	return bcrypt.compare(password, this.password);
+};
+
+// Allow to export the model to use it in other files
 export default mongoose.model('User', userSchema);
