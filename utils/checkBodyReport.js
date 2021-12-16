@@ -17,13 +17,13 @@ export default (req, res, next) => {
 		timeReport,
 		addressReport,
 		pictureReport,
-		lastNameSender,
-		firstNameSender,
-		emailSender,
-		addressSender,
-		citySender,
-		postalSender,
-		phoneSender,
+		lastName,
+		firstName,
+		email,
+		address,
+		city,
+		postalCode,
+		phone,
 	} = req.body;
 
 	const errors = [];
@@ -42,37 +42,41 @@ export default (req, res, next) => {
 	else if (!isTime(timeReport)) errors.push('The time report provided is invalid');
 	else {
 		timeReport = timeReport.split(':');
+		// Merge date and time to get a full date in one variable
 		req.body.dateReport = new Date(new Date(dateReport).setHours(timeReport[0], timeReport[1]));
+		
+		// Just deleting the timeReport property from the req.body object
+		delete req.body.timeReport;
 	}
 
 	if (!addressReport) errors.push('Please provide the report address');
 
-	if (pictureReport && !isPictureCloudinaryUrl(pictureReport)) errors.push('Invalid image URL link provided');
+	if (pictureReport && !isPictureCloudinaryUrl(pictureReport))
+		errors.push('Invalid image URL link provided');
 
-	if (!lastNameSender) errors.push('Please provide your last name');
-	else if (!(lastNameSender.length >= 2 && lastNameSender.length <= 50))
+	if (!lastName) errors.push('Please provide your last name');
+	else if (!(lastName.length >= 2 && lastName.length <= 50))
 		errors.push('Last name must be between 2 and 50 characters');
 
-	if (!firstNameSender) errors.push('Please provide your first name');
-	else if (!(firstNameSender.length >= 2 && firstNameSender.length <= 50))
+	if (!firstName) errors.push('Please provide your first name');
+	else if (!(firstName.length >= 2 && firstName.length <= 50))
 		errors.push('First name must be between 2 and 50 characters');
 
-	if (!emailSender) errors.push('Please provide an email address');
-	else if (!isEmail(emailSender))
-		errors.push('The format of the email address provided is invalid');
+	if (!email) errors.push('Please provide an email address');
+	else if (!isEmail(email)) errors.push('The format of the email address provided is invalid');
 
-	if (!addressSender) errors.push('Please provide your address');
+	if (!address) errors.push('Please provide your address');
 
-	if (!citySender) errors.push('Please provide your city name');
+	if (!city) errors.push('Please provide your city name');
 
-	if (!postalSender) errors.push('Please provide your postal code');
-	else if (!isPostalCode(postalSender)) errors.push('The postal code provided is invalid');
+	if (!postalCode) errors.push('Please provide your postal code');
+	else if (!isPostalCode(postalCode)) errors.push('The postal code provided is invalid');
 
-	if (!phoneSender) errors.push('Please provide a phone number');
-	else if (!isPhoneNumber(phoneSender))
+	if (!phone) errors.push('Please provide a phone number');
+	else if (!isPhoneNumber(phone))
 		errors.push('The phone number provided does not follow the requested format');
 
 	if (errors.length > 0) return res.status(StatusCodes.BAD_REQUEST).json({ errors });
 
 	next();
-}
+};
