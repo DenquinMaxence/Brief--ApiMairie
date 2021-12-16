@@ -1,14 +1,20 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const userSchema = new mongoose.Schema(
 	{
-		name: {
+		lastName: {
 			type: String,
-			required: [true, "Merci de fournir un nom d'utilisateur"],
+			required: [true, 'Merci de fournir votre nom de famille'],
 			minlength: 3,
 			maxlength: 50,
-			unique: true,
+		},
+		firstName: {
+			type: String,
+			required: [true, 'Merci de fournir votre prénom'],
+			minlength: 3,
+			maxlength: 50,
 		},
 		email: {
 			type: String,
@@ -31,7 +37,9 @@ const userSchema = new mongoose.Schema(
 	}
 );
 
-// pre hook
+userSchema.index({ lastName: 1, firstName: 1 }, { unique: true });
+
+//pre hook
 userSchema.pre('save', async function () {
 	const salt = await bcrypt.genSalt(Number(process.env.SALT));
 	this.password = await bcrypt.hash(this.password, salt);
