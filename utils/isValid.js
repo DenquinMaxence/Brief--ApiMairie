@@ -1,5 +1,5 @@
 export const isTypeReport = (value) => {
-	const typeOfReport = ['highways', 'parking', 'works', 'animals', 'other'];
+	const typeOfReport = process.env.REPORT_TYPES.split(', ');
 	return typeOfReport.includes(value);
 };
 
