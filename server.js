@@ -1,9 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; // ignore self signed certificate 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; // ignore self signed certificate
 
 import express from 'express';
 import connectDB from './config/db.js';
+import cookieParser from 'cookie-parser';
 import authRouter from './routes/authRoutes.js';
 import reportRouter from './routes/reportRoutes.js';
 import cors from 'cors';
@@ -23,10 +24,12 @@ const start = async () => {
 start();
 
 // Middleware
-app.use(express.static('public'));
+app.use(cors());
+
+// app.use(express.static('public'));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
-app.use(cors());
+app.use(cookieParser());
 
 // Routes
 app.use('/api/v1/auth', authRouter);
