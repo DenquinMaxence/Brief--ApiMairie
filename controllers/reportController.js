@@ -9,41 +9,19 @@ export const createReport = async (req, res) => {
 		dateReport,
 		addressReport,
 		pictureReport,
-		lastNameSender,
-		firstNameSender,
-		emailSender,
-		addressSender,
-		citySender,
-		postalSender,
-		phoneSender,
+		lastName,
+		firstName,
+		email,
+		address,
+		city,
+		postalCode,
+		phone,
 	} = req.body;
 
-	let sendTo, mailResponse;
+	let mailResponse;
 	try {
-		switch (typeReport) {
-			case 'highways':
-				sendTo = 'voirie@simplonville.co';
-				break;
-
-			case 'parking':
-				sendTo = 'stationnement@simplonville.co';
-				break;
-
-			case 'works':
-				sendTo = 'travaux@simplonville.co';
-				break;
-
-			case 'animals':
-				sendTo = 'animaux@simplonville.co';
-				break;
-
-			default:
-				sendTo = 'autres@simplonville.co';
-				break;
-		}
-
 		mailResponse = await sendEmail(
-			sendTo,
+			`${typeReport}@simplonville.co`,
 			'Nouveau signalement',
 			`
 				<div>
@@ -61,18 +39,18 @@ export const createReport = async (req, res) => {
 				</div>
 				<div>
 					<h1>Informations sur l'expéditeur du signalement</h1>
-					<p>Nom: ${lastNameSender}</p>
-					<p>Prénom: ${firstNameSender}</p>
-					<p>Email: ${emailSender}</p>
-					<p>Adresse: ${addressSender}</p>
-					<p>Ville: ${citySender}</p>
-					<p>Code postal: ${postalSender}</p>
-					<p>Numéro de téléphone: ${phoneSender}</p>
+					<p>Nom: ${lastName}</p>
+					<p>Prénom: ${firstName}</p>
+					<p>Email: ${email}</p>
+					<p>Adresse: ${address}</p>
+					<p>Ville: ${city}</p>
+					<p>Code postal: ${postalCode}</p>
+					<p>Numéro de téléphone: ${phone}</p>
 				</div>
 			`
 		);
 	} catch (error) {
-		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errorr: error.message });
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
 	}
 
 	try {
@@ -82,13 +60,13 @@ export const createReport = async (req, res) => {
 			date: dateReport,
 			addressReport,
 			picture: pictureReport,
-			lastName: lastNameSender,
-			firstName: firstNameSender,
-			email: emailSender,
-			address: addressSender,
-			city: citySender,
-			postalCode: postalSender,
-			phone: phoneSender,
+			lastName,
+			firstName,
+			email,
+			address,
+			city,
+			postalCode,
+			phone,
 		});
 
 		res.status(StatusCodes.CREATED).send({ report: report._id, mail: mailResponse.messageId });
