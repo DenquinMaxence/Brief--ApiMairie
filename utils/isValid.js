@@ -25,6 +25,16 @@ export const isPictureCloudinaryUrl = (value) => {
 	return REGEX_PICTURE_CLOUDINARY_URL.test(value);
 };
 
+export const isLastName = (value) => {
+	return value.length >= 2 && value.length <= 50;
+};
+
+export const isFirstName = (value) => isLastName(value);
+
+export const isPassword = (value) => {
+	return value.length >= 3 && value.length <= 1024;
+};
+
 export const isEmail = (value) => {
 	// Email validation Regex with format
 	const REGEX_EMAIL =
