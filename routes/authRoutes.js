@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import checkBodySignUp from '../utils/checkBodySignUp.js';
+import checkBodySignUp from '../middleware/checkBodySignUp.js';
 import { signUp, signIn, signOut } from '../controllers/authController.js';
 import verifyToken from '../middleware/authMiddleware.js';
 

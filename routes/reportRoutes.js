@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import checkBodyReport from '../utils/checkBodyReport.js';
+import checkBodyReport from '../middleware/checkBodyReport.js';
 import uploadPicture from '../middleware/cloudinary.js';
 import { createReport } from '../controllers/reportController.js';
 
