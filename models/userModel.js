@@ -6,28 +6,24 @@ const userSchema = new mongoose.Schema(
 	{
 		lastName: {
 			type: String,
-			required: [true, 'Merci de fournir votre nom de famille'],
+			required: true,
 			minlength: 3,
 			maxlength: 50,
 		},
 		firstName: {
 			type: String,
-			required: [true, 'Merci de fournir votre prénom'],
+			required: true,
 			minlength: 3,
 			maxlength: 50,
 		},
 		email: {
 			type: String,
-			required: [true, "Merci d'insérer une adresse email"],
-			match: [
-				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-				'Merci de fournir une adresse email valide',
-			],
+			required: true,
 			unique: true,
 		},
 		password: {
 			type: String,
-			required: [true, 'Merci de fournir un mot de passe'],
+			required: true,
 			minlength: 3,
 			maxlength: 1024,
 		},
