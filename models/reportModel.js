@@ -71,7 +71,7 @@ const reportSchema = new mongoose.Schema(
 			type: String,
 			minlength: 2,
 			maxlength: 50,
-			required: [true, 'Merci de fournir un nom'],
+			required: true,
 		},
 		/**
 		 * @description Firstname of the sender
@@ -84,7 +84,7 @@ const reportSchema = new mongoose.Schema(
 			type: String,
 			minlength: 2,
 			maxlength: 50,
-			required: [true, 'Merci de fournir un prénom'],
+			required: true,
 		},
 		/**
 		 * @description Email of the sender
@@ -95,7 +95,7 @@ const reportSchema = new mongoose.Schema(
 		 */
 		email: {
 			type: String,
-			required: [true, 'Merci de fournir un email'],
+			required: true,
 		},
 		/**
 		 * @description Adress of the sender
@@ -106,7 +106,7 @@ const reportSchema = new mongoose.Schema(
 		 */
 		address: {
 			type: String,
-			required: [true, 'Please provide an address'],
+			required: true,
 		},
 		/**
 		 * @description City of the sender
@@ -117,7 +117,7 @@ const reportSchema = new mongoose.Schema(
 		 */
 		city: {
 			type: String,
-			required: [true, 'Please provide a city name'],
+			required: true,
 		},
 		/**
 		 * @description Postal code of the sender
@@ -128,7 +128,7 @@ const reportSchema = new mongoose.Schema(
 		 */
 		postalCode: {
 			type: String,
-			required: [true, 'Please provide a postal code'],
+			required: true,
 		},
 		/**
 		 * @description Phone number of the sender
@@ -141,7 +141,7 @@ const reportSchema = new mongoose.Schema(
 		 */
 		phone: {
 			type: String,
-			required: [true, 'Please provide a phone number'],
+			required: true,
 		},
 	},
 	{
