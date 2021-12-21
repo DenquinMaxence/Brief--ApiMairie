@@ -6,6 +6,7 @@ import express from 'express';
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
 import authRouter from './routes/authRoutes.js';
+import userRouter from './routes/userRoutes.js';
 import reportRouter from './routes/reportRoutes.js';
 import cors from 'cors';
 
@@ -33,3 +34,4 @@ app.use(cookieParser());
 // Routes
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/reports', reportRouter);
+app.use('/api/v1/users', userRouter);
