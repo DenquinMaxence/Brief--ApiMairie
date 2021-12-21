@@ -1,6 +1,9 @@
 import userModel from '../models/userModel.js';
 import { StatusCodes } from 'http-status-codes';
+import mongoose from 'mongoose';
+const ObjectId = mongoose.Types.ObjectId;
 
+// Register
 export const signUp = async (req, res) => {
 	try {
 		const user = await userModel.create(req.body);
@@ -10,6 +13,7 @@ export const signUp = async (req, res) => {
 	}
 };
 
+// login
 export const signIn = async (req, res) => {
 	try {
 		const { email, password } = req.body;
@@ -34,6 +38,22 @@ export const signIn = async (req, res) => {
 	}
 };
 
+// Get user info
+export const getMe = async (req, res) => {
+	if (!ObjectId.isValid(req.user._id))
+		return res.status(StatusCodes.BAD_REQUEST).send(`Invalid parameter : ${req.user._id}`);
+
+	try {
+		const user = await userModel.findById(req.user._id).select('-password -__v');
+		if (!user) return res.status(StatusCodes.BAD_REQUEST).send('User not found');
+
+		res.status(StatusCodes.OK).send(user);
+	} catch (error) {
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+	}
+};
+
+// Sign out
 export const signOut = async (req, res) => {
 	try {
 		res.clearCookie('jwt');
