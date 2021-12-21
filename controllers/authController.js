@@ -6,7 +6,18 @@ const ObjectId = mongoose.Types.ObjectId;
 // Register
 export const signUp = async (req, res) => {
 	try {
-		const user = await userModel.create(req.body);
+		const emailAlreadyExists = await userModel.findOne({ email: req.body.email });
+		if (emailAlreadyExists)
+			return res.status(StatusCodes.BAD_REQUEST).send('Email already exists');
+	} catch (error) {
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+	}
+
+	const isFirstAccount = (await userModel.countDocuments({})) === 0;
+	const role = isFirstAccount ? 'ROLE_SUPER_ADMIN' : 'ROLE_USER';
+
+	try {
+		const user = await userModel.create({ ...req.body, role });
 		res.status(StatusCodes.CREATED).send(user);
 	} catch (error) {
 		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
