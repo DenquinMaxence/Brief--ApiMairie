@@ -51,8 +51,8 @@ export const signIn = async (req, res) => {
 
 // Get user info
 export const getMe = async (req, res) => {
-	if (!ObjectId.isValid(req.user._id))
-		return res.status(StatusCodes.BAD_REQUEST).send(`Invalid parameter : ${req.user._id}`);
+	if (!ObjectId.isValid(req.user?._id))
+		return res.status(StatusCodes.BAD_REQUEST).send(`Invalid parameter : ${req.user?._id}`);
 
 	try {
 		const user = await userModel.findById(req.user._id).select('-password -__v');

@@ -32,7 +32,7 @@ export const getSingleUser = async (req, res) => {
 
 // Update user
 export const updateUser = async (req, res) => {
-	const userId = req.params.id || req.user._id;
+	const userId = req.params.id || req.user?._id;
 	
 	if (!ObjectId.isValid(userId))
 		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${userId}` });
@@ -59,7 +59,7 @@ export const updateUser = async (req, res) => {
 
 // Delete user
 export const deleteUser = async (req, res) => {
-	const userId = req.params.id || req.user._id;
+	const userId = req.params.id || req.user?._id;
 
 	if (!ObjectId.isValid(userId))
 		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${userId}` });
