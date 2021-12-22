@@ -13,6 +13,22 @@ export const getAllRoles = async (req, res) => {
 	}
 };
 
+export const getSingleRole = async (req, res) => {
+	const { id } = req.params;
+
+	if (!ObjectId.isValid(id))
+		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${id}` });
+
+	try {
+		const role = await roleModel.findById(id).select('-__v');
+		if (!role) return res.status(StatusCodes.NOT_FOUND).send('Role not found');
+
+		res.status(StatusCodes.OK).send(role);
+	} catch (error) {
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+	}
+};
+
 export const createRole = async (req, res) => {
 	try {
 		const role = await roleModel.create(req.body);
@@ -25,8 +41,13 @@ export const createRole = async (req, res) => {
 };
 
 export const updateRole = async (req, res) => {
+	const { id } = req.params;
+
+	if (!ObjectId.isValid(id))
+		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${id}` });
+
 	try {
-		const role = await roleModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+		const role = await roleModel.findByIdAndUpdate(id, req.body, { new: true });
 		if (!role) return res.status(StatusCodes.NOT_FOUND).send('Role not found');
 
 		res.status(StatusCodes.OK).send(role);
@@ -36,8 +57,13 @@ export const updateRole = async (req, res) => {
 };
 
 export const deleteRole = async (req, res) => {
+	const { id } = req.params;
+
+	if (!ObjectId.isValid(id))
+		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${id}` });
+
 	try {
-		const role = await roleModel.findByIdAndDelete(req.params.id);
+		const role = await roleModel.findByIdAndDelete(id);
 		if (!role) return res.status(StatusCodes.NOT_FOUND).send('Role not found');
 
 		res.status(StatusCodes.OK).send(role);
