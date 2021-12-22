@@ -14,7 +14,7 @@ export const signUp = async (req, res) => {
 	}
 
 	const isFirstAccount = (await userModel.countDocuments({})) === 0;
-	const role = isFirstAccount ? 'ROLE_SUPER_ADMIN' : 'ROLE_USER';
+	const role = isFirstAccount ? '61c2f309cbb68401d1ab5644' : '61c2f1870b6a854546aacfd9';
 
 	try {
 		const user = await userModel.create({ ...req.body, role });
