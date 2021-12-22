@@ -1,6 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
 import {
-	isTypeReport,
 	isDate,
 	isTime,
 	isPictureCloudinaryUrl,
@@ -8,6 +7,8 @@ import {
 	isPostalCode,
 	isPhoneNumber,
 } from '../utils/isValid.js';
+import mongoose from 'mongoose';
+const ObjectId = mongoose.Types.ObjectId;
 
 export default (req, res, next) => {
 	let {
@@ -29,7 +30,7 @@ export default (req, res, next) => {
 	const errors = [];
 
 	if (!typeReport) errors.push('Please provide a type of report');
-	else if (!isTypeReport(typeReport)) errors.push('The type of report provided is invalid');
+	else if (!ObjectId.isValid(typeReport)) errors.push('The type of report provided is invalid');
 
 	if (!descReport) errors.push('Please provide a description of the report');
 	else if (!(descReport.length > 0 && descReport.length <= 1024))
@@ -44,7 +45,7 @@ export default (req, res, next) => {
 		timeReport = timeReport.split(':');
 		// Merge date and time to get a full date in one variable
 		req.body.dateReport = new Date(new Date(dateReport).setHours(timeReport[0], timeReport[1]));
-		
+
 		// Just deleting the timeReport property from the req.body object
 		delete req.body.timeReport;
 	}
