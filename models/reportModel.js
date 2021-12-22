@@ -14,7 +14,8 @@ const reportSchema = new mongoose.Schema(
 		 * "other"
 		 */
 		type: {
-			type: String,
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'CategoryReport',
 			required: true,
 		},
 		/**
