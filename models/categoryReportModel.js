@@ -5,9 +5,11 @@ const categoryReportSchema = mongoose.Schema(
 		name: {
 			type: String,
 			required: true,
+			unique: true,
 		},
 		role: {
-			type: String,
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Role',
 			required: true,
 		},
 	},
