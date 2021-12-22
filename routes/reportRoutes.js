@@ -19,12 +19,12 @@ router.post('/', uploadPicture, checkBodyReport, createReport);
 // api/v1/reports/category
 router
 	.get('/category', getAllCategoryReports)
-	.post('/category', checkBodyReportCategory, createCategoryReport);
+	.post('/category', checkBodyReportCategory, createCategoryReport); // admin only
 
 // api/v1/reports/category/:id
 router
-	.get('/category/:id', getSingleCategoryReport)
-	.put('/category/:id', checkBodyReportCategory, updateCategoryReport)
-	.delete('/category/:id', deleteCategoryReport);
+	.get('/category/:id', getSingleCategoryReport) // admin only
+	.put('/category/:id', checkBodyReportCategory, updateCategoryReport) // admin only
+	.delete('/category/:id', deleteCategoryReport); // admin only
 
 export default router;
