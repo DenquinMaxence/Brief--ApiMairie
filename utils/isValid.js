@@ -1,7 +1,3 @@
-export const isTypeReport = (value) => {
-	const typeOfReport = process.env.REPORT_TYPES.split(', ');
-	return typeOfReport.includes(value);
-};
 
 export const isDate = (value) => {
 	// Date validation Regex with format yyyy-mm-dd
