@@ -1,6 +1,7 @@
 import reportModel from '../models/reportModel.js';
 import { StatusCodes } from 'http-status-codes';
 import sendEmail from '../utils/sendEmail.js';
+import categoryReportModel from '../models/categoryReportModel.js';
 
 export const createReport = async (req, res) => {
 	const {
@@ -18,10 +19,19 @@ export const createReport = async (req, res) => {
 		phone,
 	} = req.body;
 
+	let categoryExist;
+	try {
+		categoryExist = await categoryReportModel.findById(typeReport).select('-__v');
+		if (!categoryExist)
+			return res.status(StatusCodes.NOT_FOUND).send('Category of report not found');
+	} catch (error) {
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+	}
+
 	let mailResponse;
 	try {
 		mailResponse = await sendEmail(
-			`${typeReport}@simplonville.co`,
+			`${categoryExist.name}@simplonville.co`,
 			'Nouveau signalement',
 			`
 				<div>
