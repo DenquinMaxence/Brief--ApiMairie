@@ -31,6 +31,8 @@ export const isLastName = (value) => {
 
 export const isFirstName = (value) => isLastName(value);
 
+export const isName = (value) => isLastName(value);
+
 export const isPassword = (value) => {
 	return value.length >= 3 && value.length <= 1024;
 };
@@ -52,4 +54,10 @@ export const isPhoneNumber = (value) => {
 	// Phone number validation Regex with format
 	const REGEX_PHONE_NUMBER = /^0[1-9]([-. ]?[0-9]{2}){4}$/;
 	return REGEX_PHONE_NUMBER.test(value);
+};
+
+// Need to call database to get the list of all the available roles
+export const isRole = (value) => {
+	const REGEX_ROLE = /^([ROLE_])+([A-Z_])+$/;
+	return REGEX_ROLE.test(value);
 };
