@@ -8,14 +8,10 @@ import {
 } from '../controllers/userController.js';
 import verifyToken from '../middleware/authMiddleware.js';
 
-// Manage user
-router.get('/', getAllUsers); // Get all users (admin only)
-router.get('/:id', getSingleUser); // Get user (admin only)
+// api/v1/users/
+router.get('/', getAllUsers).put('/', verifyToken, updateUser).delete('/', verifyToken, deleteUser);
 
-router.put('/', verifyToken, updateUser); // Update user
-router.put('/:id', updateUser); // Update user (admin only)
-
-router.delete('/', verifyToken, deleteUser); // Delete user (admin only)
-router.delete('/:id', deleteUser); // Delete user (admin only)
+// api/v1/users/:id
+router.get('/:id', getSingleUser).put('/:id', updateUser).delete('/:id', deleteUser); // admin only
 
 export default router;
