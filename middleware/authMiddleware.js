@@ -1,15 +1,26 @@
+import userModel from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
-import { StatusCodes } from 'http-status-codes';
 
 export default (req, res, next) => {
-	try {
-		const token = req.cookies.jwt;
-		if (!token) return res.status(StatusCodes.UNAUTHORIZED).send('No token provided.');
+	const token = req.cookies.jwt;
+	if (token) {
+		jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+			if (err) {
+				req.user = null;
+				res.clearCookie('jwt');
+			} else {
+				const user = await userModel.findById(decodedToken.id).select('-password -__v');
+				if (!user) {
+					req.user = null;
+					res.clearCookie('jwt');
+				}
 
-		const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-		req.user = decodedToken;
+				req.user = user;
+			}
+			next();
+		});
+	} else {
+		req.user = null;
 		next();
-	} catch (error) {
-		res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
 	}
 };
