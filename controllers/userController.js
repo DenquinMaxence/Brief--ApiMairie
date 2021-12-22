@@ -18,7 +18,7 @@ export const getAllUsers = async (req, res) => {
 
 export const getSingleUser = async (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send({ message: `Invalid parameter : ${req.params.id}` });
+		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${req.params.id}` });
 
 	try {
 		const user = await userModel.findById(req.params.id).select('-password -__v');
@@ -32,19 +32,21 @@ export const getSingleUser = async (req, res) => {
 
 // Update user
 export const updateUser = async (req, res) => {
-	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send({ message: `Invalid parameter : ${req.params.id}` });
+	const userId = req.params.id || req.user._id;
+	
+	if (!ObjectId.isValid(userId))
+		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${userId}` });
 
 	try {
 		const user = await userModel
 			.findByIdAndUpdate(
-				req.params.id,
+				userId,
 				{
 					$set: {
 						...req.body,
 					},
 				},
-				{ new: true, upsert: true, setDefaultsOnInsert: true }
+				{ new: true, setDefaultsOnInsert: true }
 			)
 			.select('-password -__v');
 		if (!user) return res.status(StatusCodes.NOT_FOUND).send('User not found');
@@ -57,11 +59,13 @@ export const updateUser = async (req, res) => {
 
 // Delete user
 export const deleteUser = async (req, res) => {
-	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send({ message: `Invalid parameter : ${req.params.id}` });
+	const userId = req.params.id || req.user._id;
+
+	if (!ObjectId.isValid(userId))
+		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${userId}` });
 
 	try {
-		const user = await userModel.findById(req.params.id).select('-password -__v');
+		const user = await userModel.findById(userId).select('-password -__v');
 		if (!user) return res.status(StatusCodes.NOT_FOUND).send('User not found');
 
 		await user.remove();
