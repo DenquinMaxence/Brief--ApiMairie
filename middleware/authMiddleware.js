@@ -9,7 +9,7 @@ export default (req, res, next) => {
 				req.user = null;
 				res.clearCookie('jwt');
 			} else {
-				const user = await userModel.findById(decodedToken.id).select('-password -__v');
+				const user = await userModel.findById(decodedToken._id).select('-password -__v');
 				if (!user) {
 					req.user = null;
 					res.clearCookie('jwt');
