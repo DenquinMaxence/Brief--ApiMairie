@@ -5,6 +5,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; // ignore self signed certifica
 import express from 'express';
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
+import roleRouter from './routes/roleRoutes.js';
 import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import reportRouter from './routes/reportRoutes.js';
@@ -32,6 +33,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
 
 // Routes
+app.use('/api/v1/roles', roleRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/reports', reportRouter);
 app.use('/api/v1/users', userRouter);
