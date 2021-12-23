@@ -1,5 +1,7 @@
 import roleModel from '../models/roleModel.js';
 import { StatusCodes } from 'http-status-codes';
+import mongoose from 'mongoose';
+const ObjectId = mongoose.Types.ObjectId;
 
 export const getAllRoles = async (req, res) => {
 	try {
