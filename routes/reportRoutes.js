@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import checkBodyReport from '../middleware/checkBodyReport.js';
 import uploadPicture from '../middleware/cloudinary.js';
-import { createReport } from '../controllers/reportController.js';
+import { createReport, deleteReport } from '../controllers/reportController.js';
 import checkBodyReportCategory from '../middleware/checkBodyReportCategory.js';
 import {
 	getAllCategoryReports,
@@ -15,6 +15,9 @@ const router = Router();
 
 // api/v1/reports/
 router.post('/', uploadPicture, checkBodyReport, createReport);
+
+// api/v1/reports/:id
+router.delete('/:id', deleteReport);
 
 // api/v1/reports/category
 router
