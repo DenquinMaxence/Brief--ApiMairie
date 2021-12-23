@@ -11,6 +11,7 @@ import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import reportRouter from './routes/reportRoutes.js';
 import cors from 'cors';
+import init from './config/init.js';
 
 const app = express();
 const appPort = process.env.APP_PORT || 3500;
@@ -18,6 +19,7 @@ const appPort = process.env.APP_PORT || 3500;
 const start = async () => {
 	try {
 		await connectDB();
+		await init();
 		app.listen(appPort, () => console.log(`Server is listening on port ${appPort}...`));
 	} catch (error) {
 		console.log(error);
