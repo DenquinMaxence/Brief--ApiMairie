@@ -10,7 +10,7 @@ export default async (req, res, next) => {
 
 	try {
 		const role = await roleModel.findById(req.user.role);
-		if (role.name === 'ROLE_ADMIN' || role.name === 'ROLE_SUPER_ADMIN') next();
+		if (role && (role.name === 'ROLE_ADMIN' || role.name === 'ROLE_SUPER_ADMIN')) next();
 		else {
 			return res
 				.status(StatusCodes.FORBIDDEN)
