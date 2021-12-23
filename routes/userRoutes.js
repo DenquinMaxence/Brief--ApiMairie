@@ -6,12 +6,15 @@ import {
 	deleteUser,
 	getSingleUser,
 } from '../controllers/userController.js';
-import verifyToken from '../middleware/authMiddleware.js';
+import isAdmin from '../middleware/isAdmin.js';
 
 // api/v1/users/
-router.get('/', getAllUsers).put('/', verifyToken, updateUser).delete('/', verifyToken, deleteUser);
+router.get('/', isAdmin, getAllUsers); // admin only
 
 // api/v1/users/:id
-router.get('/:id', getSingleUser).put('/:id', updateUser).delete('/:id', deleteUser); // admin only
+router
+	.get('/:id', isAdmin, getSingleUser) // admin only
+	.put('/:id', updateUser)
+	.delete('/:id', deleteUser);
 
 export default router;
