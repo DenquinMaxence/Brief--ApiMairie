@@ -14,7 +14,7 @@ import cors from 'cors';
 import init from './config/init.js';
 
 const app = express();
-const appPort = process.env.APP_PORT || 3500;
+const appPort = process.env.PORT || 3500;
 
 const start = async () => {
 	try {
