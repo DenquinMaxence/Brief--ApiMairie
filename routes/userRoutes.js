@@ -6,7 +6,7 @@ import {
 	deleteUser,
 	getSingleUser,
 } from '../controllers/userController.js';
-import isAdmin from '../middleware/isAdmin.js';
+import { isAdmin } from '../middleware/index.js';
 
 // api/v1/users/
 router.get('/', isAdmin, getAllUsers); // admin only

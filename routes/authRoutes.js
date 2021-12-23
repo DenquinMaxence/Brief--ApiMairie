@@ -1,9 +1,7 @@
 import { Router } from 'express';
 const router = Router();
-import checkBodySignUp from '../middleware/checkBodySignUp.js';
+import { checkBodySignUp, verifyToken, isAuthenticated } from '../middleware/index.js';
 import { signUp, signIn, getMe, signOut } from '../controllers/authController.js';
-import verifyToken from '../middleware/authMiddleware.js';
-import isAuthenticated from '../utils/isAuthenticated.js';
 
 // Auth user
 router.post('/register', checkBodySignUp, signUp);

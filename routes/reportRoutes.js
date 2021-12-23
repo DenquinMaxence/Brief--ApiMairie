@@ -1,8 +1,6 @@
 import { Router } from 'express';
-import checkBodyReport from '../middleware/checkBodyReport.js';
-import uploadPicture from '../middleware/cloudinary.js';
+import { checkBodyReport, uploadPicture, checkBodyReportCategory } from '../middleware/index.js';
 import { createReport, deleteReport } from '../controllers/reportController.js';
-import checkBodyReportCategory from '../middleware/checkBodyReportCategory.js';
 import {
 	getAllCategoryReports,
 	getSingleCategoryReport,

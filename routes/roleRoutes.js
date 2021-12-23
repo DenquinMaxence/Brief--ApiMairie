@@ -1,7 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import checkBodyRole from '../middleware/checkBodyRole.js';
-import isAdmin from '../middleware/isAdmin.js';
+import { checkBodyRole, isAdmin } from '../middleware/index.js';
 import {
 	getAllRoles,
 	createRole,

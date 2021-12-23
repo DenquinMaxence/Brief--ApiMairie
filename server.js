@@ -5,8 +5,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; // ignore self signed certifica
 import express from 'express';
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
-import verifyToken from './middleware/authMiddleware.js';
-import isAuthenticated from './utils/isAuthenticated.js';
+import { verifyToken, isAuthenticated } from './middleware/index.js';
 import roleRouter from './routes/roleRoutes.js';
 import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoutes.js';
