@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; // ignore self signed certificate
+// process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; // ignore self signed certificate
 
 import express from 'express';
 import connectDB from './config/db.js';
