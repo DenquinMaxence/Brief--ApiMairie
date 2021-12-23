@@ -17,11 +17,15 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const getSingleUser = async (req, res) => {
-	if (!ObjectId.isValid(req.params.id))
-		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${req.params.id}` });
+	const { id } = req.params;
+
+	if (!ObjectId.isValid(id))
+		return res
+			.status(StatusCodes.BAD_REQUEST)
+			.send({ message: `Invalid parameter : ${id}` });
 
 	try {
-		const user = await userModel.findById(req.params.id).select('-password -__v');
+		const user = await userModel.findById(id).select('-password -__v');
 		if (!user) return res.status(StatusCodes.NOT_FOUND).send('User not found');
 
 		res.status(StatusCodes.OK).send(user);
@@ -32,15 +36,15 @@ export const getSingleUser = async (req, res) => {
 
 // Update user
 export const updateUser = async (req, res) => {
-	const userId = req.params.id || req.user?._id;
-	
-	if (!ObjectId.isValid(userId))
-		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${userId}` });
+	const { id } = req.params;
+
+	if (!ObjectId.isValid(id))
+		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${id}` });
 
 	try {
 		const user = await userModel
 			.findByIdAndUpdate(
-				userId,
+				id,
 				{
 					$set: {
 						...req.body,
@@ -59,13 +63,13 @@ export const updateUser = async (req, res) => {
 
 // Delete user
 export const deleteUser = async (req, res) => {
-	const userId = req.params.id || req.user?._id;
+	const { id } = req.params;
 
-	if (!ObjectId.isValid(userId))
-		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${userId}` });
+	if (!ObjectId.isValid(id))
+		return res.status(StatusCodes.BAD_REQUEST).send({ message: `Invalid parameter : ${id}` });
 
 	try {
-		const user = await userModel.findById(userId).select('-password -__v');
+		const user = await userModel.findById(id).select('-password -__v');
 		if (!user) return res.status(StatusCodes.NOT_FOUND).send('User not found');
 
 		await user.remove();
