@@ -97,7 +97,10 @@ export const deleteReport = async (req, res) => {
 	let report;
 	try {
 		report = await reportModel.findByIdAndDelete(id);
-		if (!report) return res.status(StatusCodes.NOT_FOUND).send('Report not found');
+		if (!report)
+			return res
+				.status(StatusCodes.NOT_FOUND)
+				.send("Can't delete report with this provided id");
 	} catch (error) {
 		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
 	}
