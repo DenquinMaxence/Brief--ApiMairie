@@ -1,6 +1,7 @@
 import userModel from '../models/userModel.js';
 import { StatusCodes } from 'http-status-codes';
 import mongoose from 'mongoose';
+import roleModel from '../models/roleModel.js';
 const ObjectId = mongoose.Types.ObjectId;
 
 // Register
@@ -14,7 +15,24 @@ export const signUp = async (req, res) => {
 	}
 
 	const isFirstAccount = (await userModel.countDocuments({})) === 0;
-	const role = isFirstAccount ? '61c2f309cbb68401d1ab5644' : '61c2f1870b6a854546aacfd9';
+	let role;
+	if (isFirstAccount) {
+		const superAdminRole = await roleModel.findOne({ name: 'ROLE_SUPER_ADMIN' });
+		if (!superAdminRole)
+			return res
+				.status(StatusCodes.INTERNAL_SERVER_ERROR)
+				.send('Role not found for first account creation');
+
+		role = superAdminRole._id;
+	} else {
+		const userRole = await roleModel.findOne({ name: 'ROLE_USER' });
+		if (!userRole)
+			return res
+				.status(StatusCodes.INTERNAL_SERVER_ERROR)
+				.send('Role not found for account creation');
+
+		role = userRole._id;
+	}
 
 	try {
 		const user = await userModel.create({ ...req.body, role });
