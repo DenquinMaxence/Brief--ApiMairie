@@ -40,3 +40,6 @@ app.use('/api/v1/roles', verifyToken, isAuthenticated, roleRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/reports', verifyToken, isAuthenticated, reportRouter);
 app.use('/api/v1/users', verifyToken, isAuthenticated, userRouter);
+app.use((req, res, next) => {
+	res.status(404).send('Page not found, make sure you have the right url');
+});
