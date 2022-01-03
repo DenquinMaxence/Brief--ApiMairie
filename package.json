@@ -2,6 +2,10 @@
 	"name": "demo",
 	"version": "1.0.0",
 	"description": "",
+	"apidoc": {
+		"title": "Api Mairie",
+		"url": "https://floating-refuge-19511.herokuapp.com/"
+	},
 	"main": "server.js",
 	"scripts": {
 		"dev": "nodemon server.js",
