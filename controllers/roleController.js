@@ -36,7 +36,7 @@ export const createRole = async (req, res) => {
 		const role = await roleModel.create(req.body);
 		if (!role) return res.status(StatusCodes.NOT_FOUND).send('Role not found');
 
-		res.status(StatusCodes.OK).send(role);
+		res.status(StatusCodes.CREATED).send(role);
 	} catch (error) {
 		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
 	}
