@@ -46,7 +46,7 @@ export const createCategoryReport = async (req, res) => {
 		if (!categoryReport)
 			return res.status(StatusCodes.NOT_FOUND).send('Category Report not found');
 
-		res.status(StatusCodes.OK).send(categoryReport);
+		res.status(StatusCodes.CREATED).send(categoryReport);
 	} catch (error) {
 		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
 	}
