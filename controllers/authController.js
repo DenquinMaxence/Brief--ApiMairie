@@ -56,7 +56,7 @@ export const signIn = async (req, res) => {
 		const token = await user.generateJWT();
 
 		// Set cookie
-		res.cookie('jwt', token, {
+		res.cookie(process.env.JWT_COOKIE_NAME, token, {
 			httpOnly: true,
 			maxAge: Number(process.env.JWT_COOKIE_MAX_AGE),
 		});
@@ -83,9 +83,9 @@ export const getMe = async (req, res) => {
 };
 
 // Sign out
-export const signOut = async (req, res) => {
+export const signOut = (req, res) => {
 	try {
-		res.clearCookie('jwt');
+		res.clearCookie(process.env.JWT_COOKIE_NAME);
 		res.status(StatusCodes.OK).send('Sign out success');
 	} catch (error) {
 		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
