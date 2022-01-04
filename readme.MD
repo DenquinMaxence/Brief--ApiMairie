@@ -1,6 +1,7 @@
 # Brief Api-Mairie
 
 This API was developed with [NodeJs](https://nodejs.org/en/) [Express](http://expressjs.com/) [MongoDB](https://www.mongodb.com/)
+
 ## API Reference
 
 https://floating-refuge-19511.herokuapp.com/
@@ -23,17 +24,17 @@ https://floating-refuge-19511.herokuapp.com/
 ##### Response ( JSON )
 
 ```http
-  Status: 201 Created
+  Status: 201 CREATED
 ```
 
 ```json
 {
+	"_id": "61c58b03ed93f821157262c1",
 	"lastName": "Doe",
 	"firstName": "John",
 	"email": "john.doe.pro@gmail.com",
 	"password": "$2b$10$7Uzv8loWxNABeOWsGJRRJ.GhXC02rpuNt7qarpVyqtMuxUKSiKGNi",
 	"role": "61c18b4239y4d66c327e6t2a",
-	"_id": "61c58b03ed93f821157262c1",
 	"createdAt": "2021-12-24T09:04:03.973Z",
 	"updatedAt": "2021-12-24T09:04:03.973Z",
 	"__v": 0
@@ -63,7 +64,7 @@ https://floating-refuge-19511.herokuapp.com/
 eyJhbGIUzI1NiIsInF5cC6IkpXVCB9.eyJfaWQiOiI2MWOGI2ZDM5ZjRkOdzk3ZTZhMzMiLCJpYXQiOjE2NDAzMzY4NzYsImV4cCI6MTY0MDU5NjA3Nn0.AbmdI74mT_Pn2oP3LbLkWETacluZGLs
 ```
 
-### Logout
+### Logout **Authentication required**
 
 ```http
   GET /api/v1/auth/logout
@@ -79,10 +80,10 @@ eyJhbGIUzI1NiIsInF5cC6IkpXVCB9.eyJfaWQiOiI2MWOGI2ZDM5ZjRkOdzk3ZTZhMzMiLCJpYXQiOj
 Sign out success
 ```
 
-### Fetch All Users **Cookie token required**
+### Fetch All Users **Authentication required and to be admin**
 
 ```http
-  GET /api/v1/users/
+  GET /api/v1/users
 ```
 
 ##### Response ( JSON )
@@ -105,7 +106,7 @@ Sign out success
 ]
 ```
 
-### Get single user
+### Get single user **Authentication required and to be admin**
 
 ```http
   GET /api/v1/users/61c58b03ed93f821157262c1
@@ -119,17 +120,336 @@ Sign out success
 
 ```json
 {
-    "_id": "61c58b03ed93f821157262c1",
-    "lastName": "Doe",
-    "firstName": "John",
-    "email": "john.doe.pro@gmail.com",
-    "role": "61c18b4239y4d66c327e6t2a",
-    "createdAt": "2021-12-24T09:04:03.973Z",
-	  "updatedAt": "2021-12-24T09:04:03.973Z"
+	"_id": "61c58b03ed93f821157262c1",
+	"lastName": "Doe",
+	"firstName": "John",
+	"email": "john.doe.pro@gmail.com",
+	"role": "61c18b4239y4d66c327e6t2a",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z"
 }
 ```
 
-### Post a new report
+### Update a user **Authentication required**
+
+```http
+  PUT /api/v1/users/61c58b03ed93f821157262c1
+```
+
+#### JSON (If no parameter(s) sent, then nothing will happen, but a response will always be return)
+
+| Parameter   | Type     | Description                                        |
+| :---------- | :------- | :------------------------------------------------- |
+| `lastName`  | `string` | **Optional**. Example : `Doe`                      |
+| `firstName` | `string` | **Optional**. Example : `John`                     |
+| `email`     | `string` | **Optional**. Example : `john.doe.pro@gmail.com`   |
+| `password`  | `string` | **Optional**. Example : `123456`                   |
+| `role`      | `string` | **Optional**. Example : `61c18b4239y4d66c327e6t2a` |
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+{
+	"_id": "61c58b03ed93f821157262c1",
+	"lastName": "Doe",
+	"firstName": "John",
+	"email": "john.doe.pro@gmail.com",
+	"role": "61c18b4239y4d66c327e6t2a",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z"
+}
+```
+
+### Remove a user **Authentication required**
+
+```http
+  DELETE /api/v1/users/61c58b03ed93f821157262c1
+```
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+{
+	"_id": "61c58b03ed93f821157262c1",
+	"lastName": "Doe",
+	"firstName": "John",
+	"email": "john.doe.pro@gmail.com",
+	"role": "61c18b4239y4d66c327e6t2a",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z"
+}
+```
+
+### Fetch All Roles **Authentication required and to be admin**
+
+```http
+  GET /api/v1/roles
+```
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+[
+	{
+		"_id": "61c58b03ed93f821157262c1",
+		"lastName": "Doe",
+		"firstName": "John",
+		"email": "john.doe.pro@gmail.com",
+		"role": "61c18b4239y4d66c327e6t2a",
+		"createdAt": "2021-12-24T09:04:03.973Z",
+		"updatedAt": "2021-12-24T09:04:03.973Z"
+	}
+]
+```
+
+### Create a new role **Authentication required and to be admin**
+
+```http
+  POST /api/v1/roles
+```
+
+#### JSON (Prefix `ROLE_` is **required**)
+
+| Parameter | Type     | Description                                                 |
+| :-------- | :------- | :---------------------------------------------------------- |
+| `name`    | `string` | **Required & Uppercase required**. Example : `ROLE_EXAMPLE` |
+
+##### Response ( Text who contains token auth)
+
+```http
+  Status: 201 CREATED
+```
+
+```json
+{
+	"_id": "61c18b4239y4d66c327e6t2a",
+	"name": "ROLE_EXAMPLE",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z",
+	"__v": 0
+}
+```
+
+### Update a role **Authentication required and to be admin**
+
+```http
+  PUT /api/v1/roles/61c18b4239y4d66c327e6t2a
+```
+
+#### JSON (Prefix `ROLE_` is **required**)
+
+| Parameter | Type     | Description                                                 |
+| :-------- | :------- | :---------------------------------------------------------- |
+| `name`    | `string` | **Required & Uppercase required**. Example : `ROLE_EXAMPLE` |
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+{
+	"_id": "61c18b4239y4d66c327e6t2a",
+	"name": "ROLE_UPDATED",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z",
+	"__v": 0
+}
+```
+
+### Remove a role **Authentication required and to be admin**
+
+```http
+  DELETE /api/v1/roles/61c18b4239y4d66c327e6t2a
+```
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+{
+	"_id": "61c18b4239y4d66c327e6t2a",
+	"name": "ROLE_EXAMPLE",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z",
+	"__v": 0
+}
+```
+
+### Get single role **Authentication required and to be admin**
+
+```http
+  GET /api/v1/users/61c18b4239y4d66c327e6t2a
+```
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+{
+	"_id": "61c18b4239y4d66c327e6t2a",
+	"name": "ROLE_EXAMPLE",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z"
+}
+```
+
+### Fetch All Category of Reports **Authentication required**
+
+```http
+  GET /api/v1/reports/category
+```
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+[
+	{
+		"_id": "61c48c7c39f4d88c397e6a6f",
+		"name": "category1",
+		"role": "61c18b4239y4d66c327e6t2a",
+		"createdAt": "2021-12-24T09:04:03.973Z",
+		"updatedAt": "2021-12-24T09:04:03.973Z"
+	},
+	{
+		"_id": "61c48c8739f4d88c397e6a69",
+		"name": "category2",
+		"role": "61c18b4239y4d66c327e6t2a",
+		"createdAt": "2021-12-24T09:04:03.973Z",
+		"updatedAt": "2021-12-24T09:04:03.973Z"
+	}
+]
+```
+
+### Get single category of reports **Authentication required**
+
+```http
+  GET /api/v1/reports/category/61c48c7c39f4d88c397e6a6f
+```
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+{
+	"_id": "61c48c7c39f4d88c397e6a6f",
+	"name": "category1",
+	"role": "61c18b4239y4d66c327e6t2a",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z"
+}
+```
+
+### Create a new category of reports **Authentication required**
+
+```http
+  POST /api/v1/reports/category
+```
+
+#### JSON
+
+| Parameter | Type     | Description                                        |
+| :-------- | :------- | :------------------------------------------------- |
+| `name`    | `string` | **Required**. Example : `highway`                  |
+| `role`    | `string` | **Required**. Example : `61c18b4239y4d66c327e6t2a` |
+
+##### Response ( JSON )
+
+```http
+  Status: 201 CREATED
+```
+
+```json
+{
+	"_id": "61c48c8e39f4d88c397e6a69",
+	"name": "category1",
+	"role": "61c18b4239y4d66c327e6t2a",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z",
+	"__v": 0
+}
+```
+
+### Update a category of reports **Authentication required**
+
+```http
+  PUT /api/v1/reports/category/61c48c8e39f4d88c397e6a69
+```
+
+#### JSON
+
+| Parameter | Type     | Description                                        |
+| :-------- | :------- | :------------------------------------------------- |
+| `name`    | `string` | **Required**. Example : `highway`                  |
+| `role`    | `string` | **Required**. Example : `61c18b4239y4d66c327e6t2a` |
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+{
+	"_id": "61c48c8e39f4d88c397e6a69",
+	"name": "category1",
+	"role": "61c18b4239y4d66c327e6t2a",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z",
+	"__v": 0
+}
+```
+
+### Remove a category of reports **Authentication required**
+
+```http
+  DELETE /api/v1/reports/category/61c48c8e39f4d88c397e6a69
+```
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+{
+	"_id": "61c48c8e39f4d88c397e6a69",
+	"name": "category1",
+	"role": "61c18b4239y4d66c327e6t2a",
+	"createdAt": "2021-12-24T09:04:03.973Z",
+	"updatedAt": "2021-12-24T09:04:03.973Z",
+	"__v": 0
+}
+```
+
+### Post a new report **Authentication required**
 
 ```http
   POST /api/v1/reports
@@ -153,8 +473,39 @@ Sign out success
 | `postalSender`    | `string` | **Required**. Example : `59100`                                                     |
 | `phoneSender`     | `string` | **Required**. Example : `0655555555` OR `06.55.55.55.55`                            |
 
-## Project Structure
+##### Response ( JSON )
 
+```http
+  Status: 201 CREATED
+```
+
+```json
+{
+	"report": "61c48daa39f4d88c397e6a49",
+	"mail": "<8974cad1-11w4-df3c-3209-8dbt21e64cf9@outlook.com>"
+}
+```
+
+### Remove a report **Authentication required**
+
+```http
+  DELETE /api/v1/reports/61c48daa39f4d88c397e6a49
+```
+
+##### Response ( JSON )
+
+```http
+  Status: 200 OK
+```
+
+```json
+{
+	"report": "61c48daa39f4d88c397e6a49",
+	"image_deleted": "ok"
+}
+```
+
+## Project Structure
 
 ```txt
 └── Brief--ApiMairie
