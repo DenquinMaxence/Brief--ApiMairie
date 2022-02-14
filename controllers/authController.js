@@ -57,7 +57,7 @@ export const signIn = async (req, res) => {
 
 		// Set cookie
 		res.cookie(process.env.JWT_COOKIE_NAME, token, {
-			httpOnly: true,
+			// httpOnly: false,
 			maxAge: Number(process.env.JWT_COOKIE_MAX_AGE),
 		});
 
